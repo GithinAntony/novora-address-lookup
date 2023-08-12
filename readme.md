@@ -21,7 +21,7 @@ The backend is built on PHP with an Object-Oriented approach. It handles the com
 - The project uses Google Maps and OpenStreetMap as the default coordinate sources.
 - The solution is intended to be a demonstration of frontend-backend interaction using ajax.
 - Note that the you must copy paste your google api key in the processRequest.php 13th line.
-- you must also comment the 19th line and uncomment 17th line for your google api keys to work. For now demo data is displayed for google api results. Note that the results    will be always same till you change the api.
+- you must also comment the 19th line and uncomment 17th line for your google api keys to work. For now demo data is displayed for google api results. Note that the results    will be always same till you change the api key.
 
 ## How to Run
 
