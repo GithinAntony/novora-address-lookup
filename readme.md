@@ -1,6 +1,6 @@
 # Address Coordinates Lookup
 
-This project provides a solution to retrieve and display coordinates (longitude and latitude) for an address using Google Maps and OpenStreetMap (OSM) APIs. The solution is implemented with jQuery and JavaScript as fronend , and a plain PHP with Object-Oriented Programming (OOP) principles as backend.
+This project provides a solution to retrieve and display coordinates (longitude and latitude) for an address using Google Maps and OpenStreetMap (OSM) APIs. The solution is implemented with jQuery and JavaScript as fronend and plain PHP with Object-Oriented Programming (OOP) principles as backend.
 
 ## Problem Statement
 
@@ -21,7 +21,7 @@ The backend is built on PHP with an Object-Oriented approach. It handles the com
 - The project uses Google Maps and OpenStreetMap as the default coordinate sources.
 - The solution is intended to be a demonstration of frontend-backend interaction using ajax.
 - Note that the you must copy paste your google api key in the processRequest.php 13th line.
-- you must also comment the 19th line and uncomment 17th line for you google api keys to work. For now demo data is displayed for google api results. Note that the results      will be always same till you change the api.
+- you must also comment the 19th line and uncomment 17th line for your google api keys to work. For now demo data is displayed for google api results. Note that the results    will be always same till you change the api.
 
 ## How to Run
 
