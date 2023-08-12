@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Address Lookup</title>
+<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    Novora - Address Lookup
+  </div>
+  <div class="row">
+    <div class="column column-left">
+      <h1 class="h1-center">Enter your address</h1>
+      <form action="" onsubmit="return processRequest()" method="post" name="addressLookupForm" > 
+        <label for="address">Address:</label>
+        <input type="text" id="inputAddress" name="inputAddress" placeholder="eg: abu dhabi">
+        <p><span id="errorText" style="color: red;"></span> </p>
+        <button type="submit" name="serachSubmit">Search</button>
+      </form>
+    </div>
+    <div class="column column-right">
+      <div class="sub-left"> 
+        <h4>OSM Results</h4>
+        <div class="sub-info" id="osmInfo">
+          <strong>Address:</strong> <span id="osmAddress">---</span><br>
+          <strong>Latitude:</strong> <span id="osmLatitude">---</span><br>
+          <strong>Longitude:</strong> <span id="osmLongitude">---</span>
+          <p><span id="osmErrorText" style="color: red;"></span> </p>
+        </div>
+      </div>
+      <div class="sub-right"> 
+        <h4>Google Results</h4>
+        <div class="sub-info" id="googleInfo">
+          <strong>Address:</strong> <span id="googleAddress">---</span><br>
+          <strong>Latitude:</strong> <span id="googleLatitude">---</span><br>
+          <strong>Longitude:</strong> <span id="googleLongitude">---</span>
+          <p><span id="googleErrorText" style="color: red;"></span> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    ©2023
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function processRequest() {
+  const inputAddress = document.getElementById("inputAddress").value;
+  const errorText = document.getElementById("errorText");
+  
+  if (inputAddress.trim() === "") {
+    errorText.textContent = "Address is required.";
+  } else {
+    errorText.textContent = ""; // Clear any previous error message
+    
+    $.ajax({
+      url: "processRequest.php",
+      method: "POST",
+      data: {
+        address: inputAddress
+      },
+      success: function(response) {
+        if (response.ajax_error_status === 0) {
+          displayResults(response.googleResults, response.osmResults);
+        } else {
+          displayError("Error processing request!");
+        }
+      },
+      error: function(xhr, status, error) {
+        displayError("AJAX Error: " + error);
+      }
+    });
+  }
+  
+  return false; // Prevent form submission
+}
+
+function displayResults(googleResults, osmResults) {
+  const osmErrorText = document.getElementById("osmErrorText");
+  const osmAddress = document.getElementById("osmAddress");
+  const osmLatitude = document.getElementById("osmLatitude");
+  const osmLongitude = document.getElementById("osmLongitude");
+
+  const googleErrorText = document.getElementById("googleErrorText");
+  const googleAddress = document.getElementById("googleAddress");
+  const googleLatitude = document.getElementById("googleLatitude");
+  const googleLongitude = document.getElementById("googleLongitude");
+
+  displayData(osmResults, osmErrorText, osmAddress, osmLatitude, osmLongitude);
+  displayData(googleResults, googleErrorText, googleAddress, googleLatitude, googleLongitude);
+}
+
+function displayData(results, errorTextElement, addressElement, latitudeElement, longitudeElement) {
+  if (results.error_status === 0) {
+    errorTextElement.textContent = "";
+    addressElement.textContent = results.address;
+    latitudeElement.textContent = results.latitude;
+    longitudeElement.textContent = results.longitude;
+  } else {
+    errorTextElement.textContent = "No results found!";
+    addressElement.textContent = '---';
+    latitudeElement.textContent = '---';
+    longitudeElement.textContent = '---';
+  }
+}
+
+function displayError(errorMessage) {
+  console.error(errorMessage);
+}
+</script>
+</body>
+</html>
